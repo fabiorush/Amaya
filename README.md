@@ -33,7 +33,7 @@ They can be found in the tar file located in the directory Library or in the Ama
  
 <a name="compilation"/>
 ## Compilation
- ... <em> to be completed </em> ...
+<http://www.w3.org/Amaya/User/Overview.html>
   
 <a name="faq"/>
 ## FAQ
