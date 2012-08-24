@@ -20,7 +20,7 @@ Copyright  ©  1994-2012 INRIA and W3C® (MIT, ERCIM, Keio).
 
 <a name="source"/>
 ## Sources
-The Amaya Source tree of Amaya can be found in the directory Amaya of this project. 
+The Amaya Source tree can be found in the directory Amaya of this project. 
 (also available from <http://www.w3.org/Amaya/User/SourceDist.html>).
  
  
