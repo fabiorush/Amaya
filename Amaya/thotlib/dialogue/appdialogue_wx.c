@@ -2235,12 +2235,8 @@ ThotBool TtaHandleSpecialKey( wxKeyEvent& event )
       proceed_key = ( thot_keysym == WXK_INSERT   ||
                       thot_keysym == WXK_DELETE   ||
                       thot_keysym == WXK_HOME     ||
-                      thot_keysym == WXK_PRIOR    ||
-                      thot_keysym == WXK_NEXT     ||
-#ifdef _MACOS
                       thot_keysym == WXK_PAGEUP   ||
                       thot_keysym == WXK_PAGEDOWN ||
-#endif /* _MACOS */
                       thot_keysym == WXK_END      ||
                       thot_keysym == WXK_LEFT     ||
                       thot_keysym == WXK_RIGHT    ||
@@ -2252,13 +2248,6 @@ ThotBool TtaHandleSpecialKey( wxKeyEvent& event )
                       thot_keysym == WXK_NUMPAD_ENTER ||
                       thot_keysym == WXK_TAB );
 
-#ifdef _MACOS
-      if (proceed_key && thot_keysym == WXK_PAGEUP)
-        thot_keysym = WXK_PRIOR;
-      else if (proceed_key && thot_keysym == WXK_PAGEDOWN)
-        thot_keysym = WXK_NEXT;
-#endif /* _MACOS */
-      
       wxWindow *p_win_focus = wxWindow::FindFocus();
       wxGLCanvas *p_gl_canvas = wxDynamicCast(p_win_focus, wxGLCanvas);
       wxSplitterWindow *p_splitter = wxDynamicCast(p_win_focus, wxSplitterWindow);

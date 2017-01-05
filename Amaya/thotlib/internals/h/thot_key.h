@@ -63,8 +63,8 @@
 #define THOT_KEY_Right		WXK_RIGHT
 #define THOT_KEY_Home		WXK_HOME
 #define THOT_KEY_End		WXK_END
-#define THOT_KEY_Prior		WXK_PRIOR
-#define THOT_KEY_Next		WXK_NEXT
+#define THOT_KEY_Prior		WXK_PAGEUP
+#define THOT_KEY_Next		WXK_PAGEDOWN
 
 #endif /* _WX */
 
