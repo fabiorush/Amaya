@@ -1367,7 +1367,7 @@ void PreferenceDlgWX::OnTemplateChoose(wxCommandEvent& event)
   p_dlg = new wxFileDialog(this,
                            TtaConvMessageToWX( TtaGetMessage (AMAYA, AM_OPEN_URL) ),
                            _T(""), _T(""), _T("Templates (*.xtd)|*.xtd"),
-                           wxOPEN | wxCHANGE_DIR);
+                           wxFD_OPEN | wxFD_CHANGE_DIR);
   if (p_dlg->ShowModal() == wxID_OK)
     {
       path = p_dlg->GetPath();

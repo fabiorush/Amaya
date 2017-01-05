@@ -352,7 +352,7 @@ void OpenDocDlgWX::OnFilenameButton( wxCommandEvent& event )
       p_dlg = new wxFileDialog(this,
                                TtaConvMessageToWX( TtaGetMessage (AMAYA, AM_OPEN_URL) ),
                                _T(""), _T(""), _T("Templates (*.xtd)|*.xtd"),
-                               wxOPEN | wxCHANGE_DIR);
+                               wxFD_OPEN | wxFD_CHANGE_DIR);
       url = XRCCTRL(*this, "wxID_TEMPLATEFILENAME", wxComboBox)->GetValue( );
     }
   else
@@ -360,7 +360,7 @@ void OpenDocDlgWX::OnFilenameButton( wxCommandEvent& event )
       p_dlg = new wxFileDialog (this,
                                 TtaConvMessageToWX( TtaGetMessage (AMAYA, AM_OPEN_URL) ),
                                 _T(""),_T(""), m_Filter,
-                                wxOPEN | wxCHANGE_DIR);
+                                wxFD_OPEN | wxFD_CHANGE_DIR);
 
       // get the combobox current url
       url = XRCCTRL(*this, "wxID_COMBOBOX", wxComboBox)->GetValue( );
@@ -678,7 +678,7 @@ void OpenDocDlgWX::OnTemplateButton( wxCommandEvent& event )
 
   p_dlg = new wxFileDialog (this, TtaConvMessageToWX( TtaGetMessage (AMAYA, AM_OPEN_URL) ),
                             _T(""), _T(""), _T("Templates (*.xtd)|*.xtd"),
-                            wxOPEN | wxCHANGE_DIR);
+                            wxFD_OPEN | wxFD_CHANGE_DIR);
   url = XRCCTRL(*this, "wxID_TEMPLATEFILENAME", wxComboBox)->GetValue( );
  // set an initial path
  if (url.StartsWith(_T("http")) ||

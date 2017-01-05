@@ -748,7 +748,7 @@ ThotBool CreateSaveObject (int ref, ThotWindow parent, char* objectname)
                                           _T(""),
                                           TtaConvMessageToWX( objectname ),
                                           wx_filter,
-                                          wxSAVE | wxCHANGE_DIR /* remember the last directory used. */
+                                          wxFD_SAVE | wxFD_CHANGE_DIR /* remember the last directory used. */
                                           );
 
   // do not force the directory, let wxWidgets choose for the current one

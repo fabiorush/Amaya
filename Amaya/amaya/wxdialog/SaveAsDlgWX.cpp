@@ -488,7 +488,7 @@ void SaveAsDlgWX::OnBrowseButton( wxCommandEvent& event )
      _T(""),
      _T(""), 
      wx_filter,
-     wxSAVE | wxCHANGE_DIR /* remember the last directory used. */
+     wxFD_SAVE | wxFD_CHANGE_DIR /* remember the last directory used. */
      );
   
   // force the directory and file name, except for W3 docs on windows 

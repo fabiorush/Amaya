@@ -1976,7 +1976,7 @@ void StyleDlgWX::OnBrowseButton( wxCommandEvent& event )
      _T(""),
      _T(""), 
      _T("*.*"),
-     wxOPEN | wxCHANGE_DIR // wxCHANGE_DIR -> remember the last directory used.
+     wxFD_OPEN | wxFD_CHANGE_DIR // wxFD_CHANGE_DIR -> remember the last directory used.
      );
 
   // do not force the directory, let wxWidgets choose for the current one
