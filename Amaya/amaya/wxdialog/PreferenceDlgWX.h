@@ -8,6 +8,7 @@
 //-----------------------------------------------------------------------------
 #include "wx/notebook.h"
 #include "wx/listbook.h"
+#include <wx/colourdata.h>
 
 #include "AmayaDialog.h"
 #include "MENUconf.h"
