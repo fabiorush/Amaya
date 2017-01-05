@@ -1058,7 +1058,7 @@ void AmayaNormalWindow::OnRecentDocMenu(wxCommandEvent& event)
   if(id < (int)m_URLs.GetCount())
     {
       wxString str = m_URLs[id];
-      if(str)
+      if(!str.empty())
         {
           SetURL(str);
           GotoSelectedURL (TRUE);
