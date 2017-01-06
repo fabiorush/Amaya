@@ -83,6 +83,7 @@ AmayaCanvas::AmayaCanvas( wxWindow * p_parent_window,
     m_IsMouseSelecting( false ),
     m_MouseGrab (false)
 {
+  printf("--FLUS--Entrou AmayaCanvas\n%x\n%x\n",p_parent_window, p_shared_context);
 #ifdef FORUMLARY_WIDGET_DEMO
   // demo de comment afficher des widgets dans une fenetre opengl
   // il faut creer un panel fils du canvas et y mettre un widget fils du panel

@@ -161,18 +161,24 @@ void AmayaPage::SetSelected( bool isSelected )
   -----------------------------------------------------------------------*/
 void AmayaPage::RaisePage()
 {
+  printf("--FLUS-0--\n");
   AmayaPageContainer * p_container = GetContainer();
 
+  printf("--FLUS-1--\n");
   if (p_container)
     {
       // raise the notebook page
+  printf("--FLUS-2--\n");
       p_container->SetSelection(GetPageId());
       SetSelected( TRUE );
+  printf("--FLUS-3--\n");
     }
   // force the window's parent to raises to the top of the window hierarchy 
   // if it is a managed window (dialog or frame).
+  printf("--FLUS-4--\n");
   if ( GetWindowParent() )
     GetWindowParent()->Raise();
+  printf("--FLUS-5--\n");
 }
 
 

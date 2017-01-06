@@ -172,17 +172,28 @@ AmayaCanvas * AmayaFrame::CreateDrawingArea()
   // If opengl is used then try to share the context
   if ( GetSharedContext () == -1/* || GetSharedContext () == m_FrameId */)
     {
+      printf("--FLUS--:AmayaFrame creation1\n");
       /* there is no existing context, I need to create a first one and share it with others canvas */
       p_canvas = new AmayaCanvas( this, this );
+      wxGLContext *p_SharedContext = new wxGLContext(p_canvas);
+      p_SharedContext->SetCurrent(*p_canvas);
+      p_canvas->SwapBuffers();
       SetSharedContext( m_FrameId );
     }
   else
     {
+      printf("--FLUS--:AmayaFrame creation2\n");
       wxASSERT( FrameTable[GetSharedContext()].WdFrame != NULL );
       wxGLContext * p_SharedContext = FrameTable[GetSharedContext()].WdFrame->GetCanvas()->GetContext();
       wxASSERT( p_SharedContext );
       // create the new canvas with the opengl shared context
       p_canvas = new AmayaCanvas( this, this, p_SharedContext );
+      if (!p_SharedContext) {
+        p_SharedContext = new wxGLContext(p_canvas);
+        p_SharedContext->SetCurrent(*p_canvas);
+        p_canvas->SwapBuffers();
+      }
+
     }
 #endif /* _NOSHARELIST */
 #endif /* _GL */
