@@ -1959,6 +1959,10 @@ static ThotBool RecCleanCache (char *dirname)
 
   /* try to delete the files & directorys inside */
   wxDir wx_dir(wx_dir_name);
+
+  if (!wx_dir.IsOpened())
+    return TRUE;
+
   cont = wx_dir.GetFirst (&name);
   while (cont)
     {
