@@ -306,7 +306,7 @@
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <cols>5</cols>
-              <rows>2</rows>
+              <rows>4</rows>
               <vgap>4</vgap>
               <hgap>4</hgap>
             </object>
