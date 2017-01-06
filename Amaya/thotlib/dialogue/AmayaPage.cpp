@@ -383,7 +383,6 @@ AmayaSplittablePage::AmayaSplittablePage( wxWindow * p_parent_window,
 					    /*| wxSP_PERMIT_UNSPLIT*/
 #endif /* 0 */
 					    );
-  SetSplitMode(0); // undefined
   p_sizerTop2->Add( m_pSplitterWindow, 1, wxEXPAND, 0 );
 
 
