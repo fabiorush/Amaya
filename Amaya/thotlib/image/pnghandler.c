@@ -208,7 +208,7 @@ static unsigned char *ReadPng (FILE *pfFile, unsigned int *width, unsigned int *
     /* Opengl Texture inversion */   
     for (i = 0; i < lh; i++)
       ppbRowPointers[i] = pixels + ((lh - (i+1)) * ulRowBytes * sizeof(png_byte));    
-    png_start_read_image (png_ptr); 
+    //png_start_read_image (png_ptr); 
     /* depending on interlacing, reading the data*/
     for (i = 0; i < passes; i++)
       for (j = 0; j < lh; j++)
@@ -459,7 +459,7 @@ static unsigned char *ReadPng (FILE *infile, int *width, int *height,
     png_error (png_ptr, "Unknown PNG color type ");
   
   /*png_read_update_info (png_ptr, info_ptr);*/
-  png_start_read_image (png_ptr);
+  // //png_start_read_image (png_ptr);
   for (i = 0; i < passes; i++)
     for (j = 0; j < *height; j++)
       png_read_row (png_ptr, NULL, row_pointers[j]);
