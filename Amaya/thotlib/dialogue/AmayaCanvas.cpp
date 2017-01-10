@@ -69,7 +69,6 @@ AmayaCanvas::AmayaCanvas( wxWindow * p_parent_window,
                           AmayaFrame * p_parent_frame,
                           wxGLContext * p_shared_context )
   : wxGLCanvas( p_parent_window,
-                p_shared_context,
                 -1,
                 wxDefaultPosition, wxDefaultSize, wxWANTS_CHARS , _T("AmayaCanvas"),
                 AmayaApp::GetGL_AttrList() ),
