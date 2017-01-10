@@ -2146,7 +2146,7 @@ char * ANNOT_PreparePostBody (Document doc)
   annot = GetMetaData (DocumentMeta[doc]->source_doc, doc);
 
   if (!annot)
-    return FALSE;
+    return NULL;
 
   /* compute the temporary file names */
   ptr = TtaGetEnvString ("APP_TMPDIR");

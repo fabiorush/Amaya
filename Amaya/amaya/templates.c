@@ -215,11 +215,8 @@ char* GetDocumentInstanceTemplateUrl(Document doc)
   XTigerTemplate t = GetXTigerDocTemplate(doc);
   if (t)
     return t->base_uri;
-  else
-    return FALSE;
-#else /* TEMPLATES */
-  return NULL;
 #endif /* TEMPLATES */
+  return NULL;
 }
 
 /*----------------------------------------------------------------------
