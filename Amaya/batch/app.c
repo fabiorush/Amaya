@@ -1622,7 +1622,7 @@ int       main (int argc, char **argv)
 		  cmd [pIndex] = (char *) TtaGetMemory (strlen (fileName) + 1);
 		  strcpy (cmd [pIndex++], fileName);
 #else  /* _WINDOWS */
-		  sprintf (&cmd[i], "-I%s -C %s > %s", pwd, srceFileName, fileName);
+		  sprintf (&cmd[i], "-I%s %s > %s", pwd, srceFileName, fileName);
 #endif /* _WINDOWS */
 		}
 	      else
@@ -1635,7 +1635,7 @@ int       main (int argc, char **argv)
 		  cmd [pIndex] = (char *) TtaGetMemory (strlen (fileName) + 1);
 		  strcpy (cmd [pIndex++], fileName);
 #else  /* _WINDOWS */
-		  sprintf (&cmd[i], "-C %s > %s", srceFileName, fileName);
+		  sprintf (&cmd[i], "%s > %s", srceFileName, fileName);
 #endif /* _WINDOWS */
 		}
 #ifdef _WINDOWS

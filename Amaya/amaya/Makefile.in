@@ -334,7 +334,7 @@ $(AMAYA)/TextFile.STR : $(AMAYA)/TextFile.S ../bin/str
 #
 compTextFileP: $(AMAYA)/TextFileP.PRS
 $(AMAYA)/TextFileP.PRS : $(AMAYA)/TextFileP.P ../bin/prs
-	PRS=`pwd`/../bin/prs ; \
+	STR=`pwd`/../bin/str;PRS=`pwd`/../bin/prs;TRA=`pwd`/../bin/tra;\
 	cd $(AMAYA); THOTDIR=`pwd`/.. ;export THOTDIR; \
 	$$STR $(ALL_AMAYA_OPTIONS) TextFile ;\
 	$$PRS $(ALL_AMAYA_OPTIONS) TextFileP ;\
@@ -401,7 +401,7 @@ $(AMAYA)/XML.STR : $(AMAYA)/XML.S ../bin/str
 #
 compXMLP: $(AMAYA)/XMLP.PRS
 $(AMAYA)/XMLP.PRS : $(AMAYA)/XMLP.P ../bin/prs
-	PRS=`pwd`/../bin/prs ; \
+	STR=`pwd`/../bin/str;PRS=`pwd`/../bin/prs;TRA=`pwd`/../bin/tra;\
 	cd $(AMAYA); THOTDIR=`pwd`/.. ;export THOTDIR; \
 	$$STR $(ALL_AMAYA_OPTIONS) XML ;\
 	$$PRS $(ALL_AMAYA_OPTIONS) XMLP ;\

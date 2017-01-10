@@ -3606,7 +3606,7 @@ int main (int argc, char **argv)
 	       cmd [pIndex] = (char *) TtaGetMemory (strlen (fname) + 1);
 	       strcpy (cmd [pIndex++], fname);
 #else  /* !_WINGUI */
-	       sprintf (&cmd[i], "-I%s -C %s > %s", pwd, srceFileName, fname);
+	       sprintf (&cmd[i], "-I%s %s > %s", pwd, srceFileName, fname);
 #endif /* _WINGUI */
 	     }
 	   else
@@ -3619,7 +3619,7 @@ int main (int argc, char **argv)
                cmd [pIndex] = (char *) TtaGetMemory (strlen (fname) + 2);
                strcpy (cmd [pIndex++], fname);
 #else  /* !_WINGUI */
-               sprintf (&cmd[i], "-C %s > %s", srceFileName, fname);
+               sprintf (&cmd[i], "%s > %s", srceFileName, fname);
 #endif /* _WINGUI */
 	     } 
 #ifdef _WINGUI
