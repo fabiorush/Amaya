@@ -607,7 +607,7 @@ BEGIN_EVENT_TABLE(AmayaWindow, wxFrame)
   EVT_IDLE(      AmayaWindow::OnIdle ) // Process a wxEVT_IDLE event  
   EVT_ACTIVATE(  AmayaWindow::OnActivate )
 #if !defined (_WINDOWS) &&  !defined (_MACOS)
-  EVT_CHAR_HOOK( AmayaWindow::OnChar )
+  EVT_CHAR( AmayaWindow::OnChar )
 #else /* !_WINDOWS  && ! MACOS */
   //  EVT_CHAR( AmayaWindow::OnChar )
 #endif /* !_WINDOWS  && ! MACOS */
