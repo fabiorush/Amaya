@@ -1345,7 +1345,7 @@
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
           <cols>2</cols>
-          <rows>2</rows>
+          <rows>0</rows>
           <object class="sizeritem">
             <object class="wxStaticText" name="wxID_LABEL_EMAIL_SERVER_ADDRESS">
               <label>*Adresse du serveur :*</label>

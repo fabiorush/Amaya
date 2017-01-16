@@ -9,7 +9,7 @@
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
           <cols>2</cols>
-          <rows>2</rows>
+          <rows>0</rows>
           <object class="sizeritem">
             <object class="wxStaticText" name="wxID_URL_LABEL">
               
