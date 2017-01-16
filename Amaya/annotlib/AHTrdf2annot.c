@@ -32,7 +32,7 @@
 #include "ANNOTtools_f.h"
 
 /* RDF parser */
-#include "raptor.h"
+#include "raptor2.h"
 
 /* Amaya includes */
 #include "AHTURLTools_f.h"
@@ -83,6 +83,7 @@ typedef struct _ParseContext
 } ParseContext, *ParseContextP;
 
 #define AnnTriple const raptor_statement
+extern raptor_world* raptor_world_obj;
 
 /* ------------------------------------------------------------
    ParseIdFragment
@@ -197,8 +198,8 @@ static ThotBool FillAnnotField( AnnotMeta* annot,
 	   contains (predicate, DC1_NS, DC_CREATOR))
     {
 
-      if (triple && (triple->object_type == RAPTOR_IDENTIFIER_TYPE_RESOURCE 
-	  || triple->object_type == RAPTOR_IDENTIFIER_TYPE_ANONYMOUS))
+      if (triple && (triple->object->type == RAPTOR_TERM_TYPE_URI 
+	  || triple->object->type == RAPTOR_TERM_TYPE_BLANK))
 	annot->creator = ANNOT_FindRDFResource (rdf_model, object, TRUE);
       else
 	{
@@ -397,7 +398,7 @@ static void Finish_FindAnnot(void)
      triple - an RDF triple
      context - pointer to a ParseContext structure
  ------------------------------------------------------------*/
-static void triple_handler (void * context, const raptor_statement *triple)
+static void triple_handler (void * context, raptor_statement *triple)
 {
   List **listP = ((ParseContextP) context)->annot_list;
   List **rdf_model = ((ParseContextP) context)->rdf_model;
@@ -411,7 +412,7 @@ static void triple_handler (void * context, const raptor_statement *triple)
       AnnotMeta *annot;
 
       /* if it's an anoynmous subject, add the base_uri */
-      if (triple->subject_type == RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      if (triple->subject->type == RAPTOR_TERM_TYPE_BLANK)
 	{
 	  ParseContext *parseCtx = (ParseContext *) context;
 	  char *base_uri = parseCtx->base_uri;
@@ -422,9 +423,9 @@ static void triple_handler (void * context, const raptor_statement *triple)
       else
 	subject = (char *) AM_RAPTOR_URI_AS_STRING(triple->subject);
 
-      if (triple->object_type ==  RAPTOR_IDENTIFIER_TYPE_LITERAL)
+      if (triple->object->type ==  RAPTOR_TERM_TYPE_LITERAL)
 	object = (char *) triple->object;
-      else if (triple->object_type ==  RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      else if (triple->object->type ==  RAPTOR_TERM_TYPE_BLANK)
 	{
 	  ParseContext *parseCtx = (ParseContext *) context;
 	  char *base_uri = parseCtx->base_uri;
@@ -483,9 +484,9 @@ static void triple_handler (void * context, const raptor_statement *triple)
 
 	  SCHEMA_AddStatement (subjectP, predicateP, objectP);
 	}
-      if (triple->subject_type == RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      if (triple->subject->type == RAPTOR_TERM_TYPE_BLANK)
 	TtaFreeMemory (subject);
-      if (triple->object_type ==  RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      if (triple->object->type ==  RAPTOR_TERM_TYPE_BLANK)
 	TtaFreeMemory (object);
     }
 }
@@ -517,7 +518,7 @@ List *RDF_parseFile (char *file_name, List **rdf_model)
 
   annot_list = NULL;
 
-  rdfxml_parser = raptor_new_parser ("rdfxml");
+  rdfxml_parser = raptor_new_parser (raptor_world_obj, "rdfxml");
 
   if (!rdfxml_parser) {
      AnnotList_free (annot_list);
@@ -550,15 +551,15 @@ List *RDF_parseFile (char *file_name, List **rdf_model)
    /* remember the base name for anoynmous subjects */
   ctx.base_uri = full_file_name;
 
-  raptor_set_statement_handler(rdfxml_parser, (void *) &ctx, triple_handler); 
+  raptor_parser_set_statement_handler(rdfxml_parser, (void *) &ctx, triple_handler); 
   tmp = (char *) raptor_uri_filename_to_uri_string ((const char *) path);
-  uri = raptor_new_uri ((const unsigned char *) tmp);
+  uri = raptor_new_uri (raptor_world_obj, (const unsigned char *) tmp);
 #ifdef _WX
   TtaFreeMemory (path);
 #endif /* _WX */
   TtaFreeMemory (tmp);
 
-  if (raptor_parse_file (rdfxml_parser, uri, NULL))
+  if (raptor_parser_parse_file (rdfxml_parser, uri, NULL))
     {
       AnnotList_free (annot_list);
       /* do not free rdf_model here; it may not have been empty to start */

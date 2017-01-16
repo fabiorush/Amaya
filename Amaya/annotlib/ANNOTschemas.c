@@ -39,7 +39,7 @@
 #include "ANNOTevent_f.h"
 
 /* RDF parser */
-#include "raptor.h"
+#include "raptor2.h"
 
 /* amaya includes */
 #include "AHTURLTools_f.h"
@@ -73,7 +73,6 @@ RDFClassP THREAD_REPLY_CLASS;
 RDFClassP DEFAULT_REPLY_TYPE;
 #endif /* ANNOT_ON_ANNOT */
 
-
 typedef struct _ReadCallbackContext
 {
   char filename[MAX_LENGTH];
@@ -84,6 +83,8 @@ typedef struct _ParseContext
   List **annot_schema_list;
   char *base_uri;   /* base URI for anonymous RDF names */
 } ParseContext, *ParseContextP;
+
+extern raptor_world* raptor_world_obj;
 
 /*------------------------------------------------------------
    _ListSearchResource
@@ -168,7 +169,7 @@ static void _AddSubClass( RDFClassP c, RDFClassP sub )
      triple - an RDF triple
      context - pointer to an RDFResource list
  ------------------------------------------------------------*/
-static void as_triple_handler (void * context, const raptor_statement *triple)
+static void as_triple_handler (void * context, raptor_statement *triple)
 {
 
   ParseContextP parse_ctx = (ParseContextP) context;
@@ -186,30 +187,30 @@ static void as_triple_handler (void * context, const raptor_statement *triple)
       RDFResourceP objectP;
 
       /* if it's an anoynmous subject, add the base_uri */
-      if (triple->subject_type == RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      if (triple->subject->type == RAPTOR_TERM_TYPE_BLANK)
 	{
 	  char *base_uri = parse_ctx->base_uri;
-	  char *ptr = (char *) triple->subject;
+	  char *ptr = (char *) triple->subject->value.blank.string;
 	  subject = (char *)TtaGetMemory (strlen (base_uri) + strlen (ptr) + 2);
 	  sprintf (subject, "%s#%s", base_uri, ptr);
 	}
       else
-	subject = (char *) AM_RAPTOR_URI_AS_STRING(triple->subject);
+	subject = (char *) AM_RAPTOR_URI_AS_STRING(triple->subject->value.uri);
 
       subjectP = ANNOT_FindRDFResource (listP, subject, TRUE);
 
-      if (triple->object_type ==  RAPTOR_IDENTIFIER_TYPE_LITERAL)
+      if (triple->object->type ==  RAPTOR_TERM_TYPE_LITERAL)
 	object = (char *) triple->object;
-      else if (triple->object_type ==  RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      else if (triple->object->type ==  RAPTOR_TERM_TYPE_BLANK)
 	{
 	  ParseContext *parseCtx = (ParseContext *) context;
 	  char *base_uri = parseCtx->base_uri;
-	  char *ptr =  (char *) triple->object;
+	  char *ptr =  (char *) triple->object->value.blank.string;
 	  object = (char *) TtaGetMemory (strlen (base_uri) + strlen (ptr) + 2);
 	  sprintf (object, "%s#%s", base_uri, ptr);
 	}
       else
-	object = (char *) AM_RAPTOR_URI_AS_STRING(triple->object);
+	object = (char *) AM_RAPTOR_URI_AS_STRING(triple->object->value.uri);
 
       objectP = ANNOT_FindRDFResource (listP, object, TRUE);
 
@@ -231,7 +232,7 @@ static void as_triple_handler (void * context, const raptor_statement *triple)
 	  subjectP->class_->subClasses = NULL;
 	}
 
-      if (triple->subject_type == RAPTOR_IDENTIFIER_TYPE_ANONYMOUS)
+      if (triple->subject->type == RAPTOR_TERM_TYPE_BLANK)
 	TtaFreeMemory (subject);
     }
 }
@@ -261,7 +262,7 @@ static void ReadSchema_callback (Document doc, int status,
 
   if (status == HT_OK)
     {
-      rdfxml_parser = raptor_new_parser ("rdfxml");
+      rdfxml_parser = raptor_new_parser (raptor_world_obj, "rdfxml");
 
       if (!rdfxml_parser)
 	return;
@@ -280,18 +281,18 @@ static void ReadSchema_callback (Document doc, int status,
       /* remember the base name for anoynmous subjects */
       parse_ctx->base_uri = full_file_name;
       parse_ctx->annot_schema_list = &annot_schema_list;
-      raptor_set_statement_handler (rdfxml_parser, (void *) parse_ctx, as_triple_handler);
+      raptor_parser_set_statement_handler (rdfxml_parser, (void *) parse_ctx, as_triple_handler);
       
       {
 	unsigned char *tmp;
 	
 	tmp = raptor_uri_filename_to_uri_string ((const char *) ctx->filename);
 	/* tmp = raptor_uri_filename_to_uri_string ((const char *) "/home/kahan/Amaya/config/annotschema.rdf"); */
-	uri = raptor_new_uri ((const unsigned char *) tmp);
+	uri = raptor_new_uri (raptor_world_obj, (const unsigned char *) tmp);
 	free (tmp);
       }
 
-      parse = raptor_parse_file (rdfxml_parser, uri, NULL);
+      parse = raptor_parser_parse_file (rdfxml_parser, uri, NULL);
 
       if (!parse)
 	TtaSetStatus (doc, 1, "Schema read", NULL); /* @@ */

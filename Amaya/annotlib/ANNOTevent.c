@@ -49,7 +49,7 @@
 
 /* RDF parser */
 #if defined(ANNOTATIONS) && !defined(BOOKMARKS)
-#include "raptor.h"
+#include "raptor2.h"
 #endif /* BOOKMARKS */
 
 #define DEFAULT_ALGAE_QUERY "w3c_algaeQuery=(ask '((?p ?s ?o)) :collect '(?p ?s ?o))"
@@ -73,6 +73,8 @@ static ThotBool annotPOSTUpdate; /* use the POST method for updating annotations
 static Element last_selected_annotation[DocumentTableLength];
 
 static ThotBool schema_init = FALSE;
+raptor_world* raptor_world_obj;
+
 
 /* the structure used for storing the context of the 
    Annot_Raisesourcedoc_callback function */
@@ -342,7 +344,7 @@ void ANNOT_Init ()
      Redland initializes raptor itself in that case */
 #ifndef BOOKMARKS
   /* initializes raptor */
-  raptor_init ();
+  raptor_world_obj = raptor_new_world();
 #endif /* ! BOOKMARKS */
 }
 
@@ -383,7 +385,7 @@ void ANNOT_Quit ()
   /* frees raptor if we're using redland and not using bookmarks.
      Redland frees raptor itself in that case */
 #ifndef BOOKMARKS
-  raptor_finish ();
+  raptor_free_world(raptor_world_obj);
 #endif /* ! BOOKMARKS */
 }
 

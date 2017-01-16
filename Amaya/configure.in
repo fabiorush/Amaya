@@ -893,7 +893,7 @@ if test "$with_raptor" = "yes" ; then
 		cd ..
 	else
 		raptor_includes=`$RAPTOR_CONFIG --cflags`
-		raptor_libs="-lraptor"
+		raptor_libs="-lraptor2"
 		BUILDRAPTOR=""
  		AMAYA_ANNOT_OPTIONS="$AMAYA_ANNOT_OPTIONS"
 		AMAYA_ANNOT_INCLUDES="$raptor_includes -I\$(THOTDIR)/thotlib/include"
