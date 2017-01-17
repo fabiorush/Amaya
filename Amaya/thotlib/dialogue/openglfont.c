@@ -266,7 +266,7 @@ Char_Cache_index *Char_index_lookup_cache (GL_font *font, unsigned int idx,
       }
 
 #ifdef _WX
-  TTALOGDEBUG_3( TTA_LOG_FONT, _T("new cache entry font=%x idx=%d datatype=%d"), font, idx, data_type );
+  TTALOGDEBUG_3( TTA_LOG_FONT, _T("new cache entry font=%lx idx=%u datatype=%u"), (long int)font, idx, data_type );
 #endif /* _WX */
 
   /* nothing has been found : now create a new cache entry */

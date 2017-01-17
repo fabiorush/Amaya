@@ -1013,7 +1013,7 @@ void AmayaNormalWindow::OnMenuItem( wxCommandEvent& event )
         }
     }
 
-  TTALOGDEBUG_2( TTA_LOG_DIALOG, _T("AmayaNormalWindow::OnMenuItem id=%d action_id=%d"), id, action_id );
+  TTALOGDEBUG_2( TTA_LOG_DIALOG, _T("AmayaNormalWindow::OnMenuItem id=%ld action_id=%d"), id, action_id );
   
   /* if this menu is the context menu it's possible that the current active document is not the wanted one */
   if (p_menu && p_menu == p_context_menu)

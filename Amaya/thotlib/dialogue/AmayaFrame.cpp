@@ -756,7 +756,7 @@ void AmayaFrame::RefreshStatusBarText()
   -----------------------------------------------------------------------*/
 void AmayaFrame::SetStatusBarText( const wxString & text )
 {
-  TTALOGDEBUG_1( TTA_LOG_DIALOG, _T("AmayaFrame::SetStatusBarText - len=%d"), text.Length() );
+  TTALOGDEBUG_1( TTA_LOG_DIALOG, _T("AmayaFrame::SetStatusBarText - len=%zd"), text.Length());
 
   // the new text is assigned
   m_StatusBarText = text;
