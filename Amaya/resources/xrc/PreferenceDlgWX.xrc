@@ -839,7 +839,7 @@
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
           <cols>3</cols>
-          <rows>4</rows>
+          <rows>0</rows>
           <object class="sizeritem">
             <object class="wxStaticText" name="wxID_LABEL_TEXTCOLOR">
               <label>*Couleur du texte*</label>
